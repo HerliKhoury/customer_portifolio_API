@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
 export const MyDataSource = new DataSource({
     migrationsTableName: "migrations",
     type: "postgres",
@@ -15,6 +14,6 @@ export const MyDataSource = new DataSource({
     logging: false,
     synchronize: false,
     name: "default",
-    entities: ['src/**/**.entity{.ts,.js}'],
-    migrations: ['src/migrations/**/*{.ts,.js}']
+    entities: ['./src/entities/*{.ts,.js}'],
+    migrations: ['./src/migrations/*{.ts,.js}']
 });
