@@ -16,3 +16,5 @@ export const userSchemaRes = userSchema.omit({password: true});
 export const userSchemaArr = z.array(userSchema);
 
 export const userSchemaArrRes = z.array(userSchemaRes);
+
+export const userSchemaReqPatch = userSchemaReq.optional();
