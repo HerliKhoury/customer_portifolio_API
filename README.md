@@ -11,11 +11,11 @@ Aplicação que gerencia usuários, filmes e reviews.
 | `GET` | `/users` | Lista todos os usuários | `Não` |
 | `PATCH` | `/users/:id` | Atualiza usuário por id | `Sim` |
 | `DELETE` | `/users/:id` | Deleta usuário por id | `Sim` |
-| `GET` | `/users/:id/costumers` | Lista de clientes de um usuário por id | `Sim` |
-| `GET` | `/costumers` | Listar todos os clientes cadastrados | `Não` |
-| `POST` | `/costumers` | Cria um cliente | `Sim` |
-| `PATCH` | `/costumers` | Atualiza os dados de um cliente | `Sim` |
-| `DELETE` | `/costumers` | Deleta um cliente | `Não` |
+| `GET` | `/users/:id/customers` | Lista de clientes de um usuário por id | `Sim` |
+| `GET` | `/customers` | Listar todos os clientes cadastrados | `Não` |
+| `POST` | `/customers` | Cria um cliente | `Sim` |
+| `PATCH` | `/customers` | Atualiza os dados de um cliente | `Sim` |
+| `DELETE` | `/customers` | Deleta um cliente | `Não` |
 
 ### Diagrama de Entidade de Relacionamento
 
