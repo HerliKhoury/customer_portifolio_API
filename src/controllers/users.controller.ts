@@ -3,6 +3,7 @@ import { TUserReq, TUserReqUpdate, TUserRes, TUserResArr } from "../interfaces/u
 import { createUserService } from "../services/users/createUser.service";
 import { catchAllUsersService } from "../services/users/catchAllUsers.service";
 import { updateUser } from "../services/users/updateUser.service";
+import { deleteUser } from "../services/users/deleteUser.service";
 
 
 export const createUserController = async (
@@ -36,4 +37,15 @@ export const updateUserController = async (
     const updatedUser: TUserRes = await updateUser(userId, userData, res);
 
     return res.status(200).json(updatedUser);
+}
+
+export const deleteUserController = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    const userId: number = parseInt(req.params.id);
+
+    await deleteUser(userId);
+
+    return res.status(204).send();
 }
