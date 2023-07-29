@@ -14,8 +14,8 @@ Aplicação que gerencia usuários, filmes e reviews.
 | `GET` | `/users/:id/customers` | Lista de clientes de um usuário por id | `Sim` |
 | `GET` | `/customers` | Listar todos os clientes cadastrados | `Não` |
 | `POST` | `/customers` | Cria um cliente | `Sim` |
-| `PATCH` | `/customers` | Atualiza os dados de um cliente | `Sim` |
-| `DELETE` | `/customers` | Deleta um cliente | `Não` |
+| `PATCH` | `/customers/:id` | Atualiza os dados de um cliente | `Sim` |
+| `DELETE` | `/customers/:id` | Deleta um cliente | `Sim` |
 
 ### Diagrama de Entidade de Relacionamento
 
