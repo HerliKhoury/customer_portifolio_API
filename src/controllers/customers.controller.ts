@@ -3,6 +3,7 @@ import { createCustomer } from "../services/customers/createCustomer.service";
 import { TCostumer, TCostumerArr, TCostumerPatch, TCostumerReq } from "../interfaces/customers.interface";
 import { catchAllCustomersService } from "../services/customers/catchAllCustomers.service";
 import { updateCustomerService } from "../services/customers/updateCustomer.service";
+import { deleteCustomerService } from "../services/customers/deleteCustomer.service";
 
 
 export const createCustomerController = async (
@@ -36,4 +37,15 @@ export const updateCustomerController = async (
     const updatedCustomer: TCostumer = await updateCustomerService(customerId, customerData);
 
     return res.status(200).json(updatedCustomer);
+}
+
+export const deleteCustomerController = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    const customerId: number = parseInt(req.params.id);
+
+    await deleteCustomerService(customerId);
+
+    return res.status(204).send();
 }
