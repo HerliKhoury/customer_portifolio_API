@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { createCustomerController } from "../controllers/customers.controller";
+import { catchAllCustomersController, createCustomerController } from "../controllers/customers.controller";
 import { ensureTokenIsValid } from "../middlewares/ensureTokenIsValid.middleware";
 import { ensureBodyIsValid } from "../middlewares/ensureBodyIsValid.middleware";
 import { customerSchemaReq, customerSchemaReqPatch } from "../schemas/customers.schemas";
 
 export const customerRoutes: Router = Router();
 
-customerRoutes.get("", );
+customerRoutes.get("", catchAllCustomersController);
 customerRoutes.post(
     "", 
     ensureTokenIsValid, 
