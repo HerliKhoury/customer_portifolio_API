@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { catchAllCustomersController, createCustomerController } from "../controllers/customers.controller";
+import { catchAllCustomersController, createCustomerController, updateCustomerController } from "../controllers/customers.controller";
 import { ensureTokenIsValid } from "../middlewares/ensureTokenIsValid.middleware";
 import { ensureBodyIsValid } from "../middlewares/ensureBodyIsValid.middleware";
 import { customerSchemaReq, customerSchemaReqPatch } from "../schemas/customers.schemas";
@@ -16,6 +16,7 @@ customerRoutes.post(
 customerRoutes.patch(
     "/:id", 
     ensureTokenIsValid,  
-    ensureBodyIsValid(customerSchemaReqPatch)
+    ensureBodyIsValid(customerSchemaReqPatch),
+    updateCustomerController
     );
 customerRoutes.delete("/:id", ensureTokenIsValid);
