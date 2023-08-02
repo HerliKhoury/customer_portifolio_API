@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { MyError } from "../errors/myError";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const ensureTokenIsValid = async (
     req: Request,
@@ -17,11 +20,12 @@ export const ensureTokenIsValid = async (
 
     jwt.verify(
         token,
-        "tovalhalla",
-        (err: any) => {
+        process.env.SECRET_KEY!,
+        (err: any,  decoded: any) => {
             if(err){
                 throw new MyError(err.message, 401)
-            }
+            } 
+            res.locals.userId = decoded.userId;
         }
     );
 

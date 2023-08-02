@@ -3,6 +3,8 @@ import { catchAllCustomersController, createCustomerController, deleteCustomerCo
 import { ensureTokenIsValid } from "../middlewares/ensureTokenIsValid.middleware";
 import { ensureBodyIsValid } from "../middlewares/ensureBodyIsValid.middleware";
 import { customerSchemaReq, customerSchemaReqPatch } from "../schemas/customers.schemas";
+import { ensureCustomerDontExist } from "../middlewares/ensureCustomerDontExist";
+import { ensureCustomerExists } from "../middlewares/ensureCustomerExists.middleware";
 
 export const customerRoutes: Router = Router();
 
@@ -10,13 +12,20 @@ customerRoutes.get("", catchAllCustomersController);
 customerRoutes.post(
     "", 
     ensureTokenIsValid, 
-    ensureBodyIsValid(customerSchemaReq), 
+    ensureBodyIsValid(customerSchemaReq),
+    ensureCustomerDontExist, 
     createCustomerController
     );
 customerRoutes.patch(
     "/:id", 
     ensureTokenIsValid,  
     ensureBodyIsValid(customerSchemaReqPatch),
+    ensureCustomerDontExist,
     updateCustomerController
     );
-customerRoutes.delete("/:id", ensureTokenIsValid, deleteCustomerController);
+customerRoutes.delete(
+    "/:id", 
+    ensureTokenIsValid,
+    ensureCustomerExists, 
+    deleteCustomerController
+    );
