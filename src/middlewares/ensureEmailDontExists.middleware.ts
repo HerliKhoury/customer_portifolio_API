@@ -8,7 +8,7 @@ export const ensureEmailDontExist = async (
     req: Request,
     res: Response,
     next: NextFunction
-): Promise<void>=> {
+): Promise<void | Response>=> {
     const userRepo: Repository<User> = MyDataSource.getRepository(User);
 
     const userEmail: string = req.body.email;
@@ -20,7 +20,7 @@ export const ensureEmailDontExist = async (
     });
 
     if(user){
-        throw new MyError("Email already exists", 409)
+        return res.status(409).json({message: "Email already exists"});
     };
 
     return next();

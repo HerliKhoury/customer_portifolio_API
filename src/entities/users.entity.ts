@@ -4,9 +4,11 @@ import {
     Column, 
     CreateDateColumn, 
     BeforeInsert, 
-    BeforeUpdate
+    BeforeUpdate,
+    OneToMany
 } from "typeorm";
 import { getRounds, hashSync } from "bcryptjs";
+import { Customer } from "./customers.entity";
 
 @Entity("user")
 export class User{
@@ -28,6 +30,9 @@ export class User{
 
     @CreateDateColumn({type: 'date', nullable: false}) 
     created_at: string;
+
+    @OneToMany(() => Customer, customer => customer.user) // Verifique se o relacionamento está correto
+    customers: Customer[];
 
     @BeforeInsert()
     @BeforeUpdate()

@@ -3,7 +3,8 @@ import {
     PrimaryGeneratedColumn, 
     Column, 
     CreateDateColumn, 
-    ManyToOne 
+    ManyToOne, 
+    DeepPartial
 } from "typeorm";
 import { User } from "./users.entity";
 
@@ -24,6 +25,6 @@ export class Customer{
     @CreateDateColumn({type: 'date', nullable: false}) 
     created_at: string;
 
-    @ManyToOne(() => User )
-    user: User;
+    @ManyToOne(() => User, { eager: true } )
+    user: number;
 }

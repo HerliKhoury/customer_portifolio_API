@@ -5,10 +5,14 @@ import { TCostumer, TCostumerReq } from "../../interfaces/customers.interface";
 import { customerSchema } from "../../schemas/customers.schemas";
 
 
-export const createCustomer = async(userData: TCostumerReq): Promise<TCostumer> => {
-    const customerRepo: Repository<Customer> = MyDataSource.getRepository(Customer);
 
-    const newCustomer = customerRepo.create(userData);
+export const createCustomer = async(customerData: TCostumerReq, loggedUserId: number): Promise<TCostumer> => {
+    const customerRepo: Repository<Customer> = MyDataSource.getRepository(Customer);
+    
+    const newCustomer = customerRepo.create({
+        ...customerData,
+        user: loggedUserId
+    });
 
     const customerEntity = await customerRepo.save(newCustomer);
 

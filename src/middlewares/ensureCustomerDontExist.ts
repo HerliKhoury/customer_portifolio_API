@@ -9,21 +9,21 @@ export const ensureCustomerDontExist = async (
     req: Request,
     res: Response,
     next: NextFunction
-): Promise<void>=> {
+): Promise<void | Response>=> {
     const customerRepo: Repository<Customer> = MyDataSource.getRepository(Customer);
 
     const customerEmail: string = req.body.email;
     const loggedUserId: number = Number(res.locals.userId)
 
-    const customer: Customer | null = await customerRepo.findOne({
-        where: {
-            user: { id: loggedUserId },
-            email: customerEmail,
-        }
-    });
 
+    const customer: Customer | null = await customerRepo
+        .createQueryBuilder("customer")
+        .where("customer.user = :userId", { userId: loggedUserId })
+        .andWhere("customer.email = :email", { email: customerEmail })
+        .getOne();
+    
     if(customer){
-        throw new MyError("Customer already registered", 409)
+        return res.status(409).json({message: "Customer already registered"});
     };
 
     return next();

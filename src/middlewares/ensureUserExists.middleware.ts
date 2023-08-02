@@ -8,7 +8,7 @@ export const ensureUserExists = async (
     req: Request,
     res: Response,
     next: NextFunction
-): Promise<void>=> {
+): Promise<void | Response>=> {
     const userRepo: Repository<User> = MyDataSource.getRepository(User);
 
     const userId: number = Number(req.params.id);
@@ -20,7 +20,7 @@ export const ensureUserExists = async (
     });
 
     if(!user){
-        throw new MyError("User not found!", 409)
+        return res.status(409).json({message: "User not found!"});
     };
 
     return next();

@@ -13,7 +13,7 @@ export const ensureTokenIsValid = async (
     let token = req.headers.authorization;
 
     if(!token){
-        throw new MyError("Missing token", 401);
+        return res.status(401).json({message: "Missing token"});
     }
 
     token = token.split(" ")[1];

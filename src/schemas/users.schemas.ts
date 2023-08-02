@@ -9,7 +9,12 @@ export const userSchema = z.object({
     created_at: z.string()    
 })
 
-export const userSchemaReq = userSchema.omit({id: true, createdAt: true });
+export const userSchemaReq = z.object({
+    full_name: z.string().max(100),
+    email: z.string().email().max(45),
+    password: z.string().max(100).nonempty(),
+    phone_number: z.string().max(20).nonempty()
+})
 
 export const userSchemaRes = userSchema.omit({password: true});
 

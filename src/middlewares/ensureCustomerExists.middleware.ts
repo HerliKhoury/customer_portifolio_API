@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Repository } from "typeorm";
+import { FindOneOptions, Repository } from "typeorm";
 import { Customer } from "../entities/customers.entity";
 import { MyError } from "../errors/myError";
 import { MyDataSource } from "../data-source";
@@ -9,21 +9,21 @@ export const ensureCustomerExists = async (
     req: Request,
     res: Response,
     next: NextFunction
-): Promise<void>=> {
+): Promise<void | Response>=> {
     const customerRepo: Repository<Customer> = MyDataSource.getRepository(Customer);
 
     const customerEmail: string = req.body.email;
-    const loggedUserId: number = Number(res.locals.userId)
+    const loggedUserId: number = Number(res.locals.userId);
 
-    const customer: Customer | null = await customerRepo.findOne({
-        where: {
-            user: { id: loggedUserId },
-            email: customerEmail,
-        }
-    });
+    const customer: Customer | null = await customerRepo
+        .createQueryBuilder("customer")
+        .where("customer.user = :userId", { userId: loggedUserId })
+        .andWhere("customer.email = :email", { email: customerEmail })
+        .getOne();
+
 
     if(!customer){
-        throw new MyError("Customer not registered", 409)
+        return res.status(409).json({message: "Customer not registered"});
     };
 
     return next();
