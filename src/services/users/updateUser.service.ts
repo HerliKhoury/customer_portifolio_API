@@ -9,7 +9,6 @@ import { userSchemaRes } from "../../schemas/users.schemas";
 export const updateUser = async (
     userId: number, 
     userData: TUserReqUpdate, 
-    res: Response
 ): Promise<TUserRes> => {
     const userRepo: Repository<User> = MyDataSource.getRepository(User);
     

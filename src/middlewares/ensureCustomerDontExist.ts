@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Repository } from "typeorm";
 import { Customer } from "../entities/customers.entity";
-import { MyError } from "../errors/myError";
 import { MyDataSource } from "../data-source";
 
 
