@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { TLoginRequest } from "../interfaces/login.interface";
+import { TLoginRequest, TLoginResponse } from "../interfaces/login.interface";
 import { loginService } from "../services/login/login.service";
 
 
@@ -9,7 +9,7 @@ export const createTokenController = async (
 ): Promise<Response> => {
     const loginData: TLoginRequest = req.body;
 
-    const token: string = await loginService(loginData);
+    const Response: TLoginResponse = await loginService(loginData);
 
-    return res.json({ token });
+    return res.json(Response);
 }

@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { TLoginRequest } from "../../interfaces/login.interface";
+import { TLoginRequest, TLoginResponse } from "../../interfaces/login.interface";
 import { User } from "../../entities/users.entity";
 import { MyDataSource } from "../../data-source";
 import { MyError } from "../../errors/myError";
@@ -13,7 +13,7 @@ dotenv.config();
 
 export const loginService = async (
     loginData: TLoginRequest
-): Promise<string> => {
+): Promise<TLoginResponse> => {
     const userRepo: Repository<User> = MyDataSource.getRepository(User);
 
     const user: User | null = await userRepo.findOne({
@@ -43,5 +43,5 @@ export const loginService = async (
         }
     );
 
-    return token;
+    return {token: token, name: user.full_name , phone: user.phone_number};
 };
