@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { catchAllCustomersController, createCustomerController, deleteCustomerController, updateCustomerController } from "../controllers/customers.controller";
+import { catchAllCustomersController, createCustomerController, deleteCustomerController, listPropertiesUser, updateCustomerController } from "../controllers/customers.controller";
 import { ensureTokenIsValid } from "../middlewares/ensureTokenIsValid.middleware";
 import { ensureBodyIsValid } from "../middlewares/ensureBodyIsValid.middleware";
 import { customerSchemaReq, customerSchemaReqPatch } from "../schemas/customers.schemas";
@@ -8,7 +8,8 @@ import { ensureCustomerExists } from "../middlewares/ensureCustomerExists.middle
 
 export const customerRoutes: Router = Router();
 
-customerRoutes.get("", catchAllCustomersController);
+customerRoutes.get("", ensureTokenIsValid, listPropertiesUser);
+
 customerRoutes.post(
     "", 
     ensureTokenIsValid, 
@@ -26,6 +27,5 @@ customerRoutes.patch(
 customerRoutes.delete(
     "/:id", 
     ensureTokenIsValid,
-    ensureCustomerExists, 
     deleteCustomerController
     );

@@ -4,6 +4,7 @@ import { TCostumer, TCostumerArr, TCostumerCreate, TCostumerPatch, TCostumerReq 
 import { catchAllCustomersService } from "../services/customers/catchAllCustomers.service";
 import { updateCustomerService } from "../services/customers/updateCustomer.service";
 import { deleteCustomerService } from "../services/customers/deleteCustomer.service";
+import { listPropertiesService } from "../services/customers/catchUserCustomers.service";
 
 
 export const createCustomerController = async (
@@ -50,3 +51,14 @@ export const deleteCustomerController = async (
 
     return res.status(204).send();
 }
+
+export const listPropertiesUser = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    const userId: number = res.locals.userId;
+    
+    const propertiesList: TCostumer[] | null = await listPropertiesService(userId);
+
+    return res.status(201).json(propertiesList);
+};

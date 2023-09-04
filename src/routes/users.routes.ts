@@ -10,6 +10,7 @@ import {
 } from "../controllers/users.controller";
 import { ensureEmailDontExist } from "../middlewares/ensureEmailDontExists.middleware";
 import { ensureUserExists } from "../middlewares/ensureUserExists.middleware";
+import { listPropertiesUser } from "../controllers/customers.controller";
 
 
 export const userRoutes: Router = Router();
@@ -20,7 +21,8 @@ userRoutes.post(
     ensureEmailDontExist, 
     createUserController
     );
-userRoutes.get("", listAllUsersController);
+
+
 userRoutes.patch(
     "/:id", 
     ensureTokenIsValid, 
@@ -28,5 +30,6 @@ userRoutes.patch(
     ensureEmailDontExist, 
     ensureBodyIsValid(userSchemaReqPatch), 
     updateUserController);
+
 userRoutes.delete("/:id", ensureTokenIsValid, ensureUserExists, deleteUserController);
-userRoutes.get("/:id/customers", ensureTokenIsValid, ensureUserExists); 
+

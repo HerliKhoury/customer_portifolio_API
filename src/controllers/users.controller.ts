@@ -34,7 +34,7 @@ export const updateUserController = async (
     const userId: number = parseInt(req.params.id);
     const userData: TUserReqUpdate = req.body;
 
-    const updatedUser: TUserRes = await updateUser(userId, userData, res);
+    const updatedUser: TUserRes = await updateUser(userId, userData);
 
     return res.status(200).json(updatedUser);
 }
